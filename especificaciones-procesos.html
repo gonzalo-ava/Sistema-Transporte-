@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Especificaciones de procesos | Sistema de transporte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+<!-- Archivo: especificaciones-procesos.html. Responsable: [completar]. Editen solo lo que está dentro de <section>. -->
+<div class="top"><div class="wrap"><header>
+<svg class="logo" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Vehículo"><rect x="7" y="10" width="50" height="38" rx="8"/><path d="M7 30h50M20 10v20M44 10v20"/><circle cx="19" cy="52" r="5" fill="#14284B"/><circle cx="45" cy="52" r="5" fill="#14284B"/></svg>
+<div><b>Sistema de transporte</b><span>Análisis y Diseño de Sistemas, proyecto de investigación</span></div>
+</header></div></div>
+<nav class="bar" aria-label="Secciones del proyecto"><div class="wrap"><div class="tabs">
+<a href="index.html">Inicio</a><a href="marco-teorico.html">Marco teórico</a><a href="analisis-estructurado.html" aria-current="page">Análisis estructurado</a><a href="analisis-objetos.html">Orientado a objetos</a><a href="boleteria.html">Boletería</a><a href="contacto.html">Contacto</a>
+</div></div></nav>
+<div class="wrap">
+<main>
+<section>
+<div class="sub"><a href="analisis-estructurado.html">Modelo ambiental y DFD</a><a href="diccionario-datos.html">Diccionario de datos</a><a href="especificaciones-procesos.html" aria-current="page">Especificaciones de procesos</a><a href="modelo-datos.html">Modelo de datos</a></div>
+<h1>Análisis estructurado</h1>
+<p class="muted">Parte II: especificaciones de procesos.</p>
+<h2>5. Especificaciones de procesos</h2>
+<p>Escribimos en español estructurado lo que hace cada uno de los doce procesos del último nivel.</p>
+<h3>1.1 Registrar rutas</h3>
+<pre class="mini">LEER datos ruta
+SI el código de ruta ya existe ENTONCES
+   ACTUALIZAR la ruta en D1
+SI NO
+   GRABAR la ruta nueva en D1
+FIN SI
+ENVIAR Registro de ruta a D1</pre>
+<h3>1.2 Registrar vehículos y choferes</h3>
+<pre class="mini">LEER datos vehículo y datos chofer
+SI la placa o el carnet ya existe ENTONCES
+   ACTUALIZAR el registro en D1
+SI NO
+   GRABAR el registro nuevo en D1
+FIN SI
+ENVIAR Registro vehículo y chofer a D1</pre>
+<h3>1.3 Asignar vehículo y chofer a la salida</h3>
+<pre class="mini">LEER Programar salidas
+OBTENER de D1 rutas, vehículos y choferes libres
+SI la ruta, el vehículo y el chofer están libres en esa fecha y hora ENTONCES
+   GRABAR Salida programada en D2
+   ENVIAR Asigna ruta y Asigna vehículo al chofer
+SI NO
+   RECHAZAR la asignación (recurso ocupado)
+FIN SI</pre>
+<h3>2.1 Consultar disponibilidad</h3>
+<pre class="mini">LEER Solicitud de pasaje
+OBTENER de D2 los Datos de viaje de la ruta y la fecha pedidas
+CONTAR los asientos libres de cada viaje
+ENVIAR Disponibilidad al boletero</pre>
+<h3>2.2 Registrar venta o anulación</h3>
+<pre class="mini">LEER Datos de venta / anulaciones
+SI tipo = venta ENTONCES
+   SI el asiento está libre ENTONCES
+      GRABAR el boleto en D2 con estado vendido (Registro de boleto)
+      ENVIAR Venta registrada
+   SI NO
+      RECHAZAR la venta (asiento ocupado)
+   FIN SI
+SI NO
+   CAMBIAR el estado del boleto a anulado y liberar el asiento en D2
+FIN SI</pre>
+<h3>2.3 Emitir boleto o factura</h3>
+<pre class="mini">LEER Venta registrada
+EMITIR Boleto al pasajero
+SI el pasajero pidió factura ENTONCES
+   EMITIR Factura y ENVIAR Facturas al SIN
+FIN SI</pre>
+<h3>3.1 Verificar salida autorizada</h3>
+<pre class="mini">LEER Lista de viajes de D2 y Autoriza salida
+SI el viaje está programado Y la terminal autorizó la salida ENTONCES
+   GENERAR Salida autorizada
+SI NO
+   ESPERAR la autorización de la terminal
+FIN SI</pre>
+<h3>3.2 Emitir planilla de salidas</h3>
+<pre class="mini">LEER Salida autorizada
+OBTENER de D2 los boletos vendidos del viaje
+ARMAR la planilla con los datos del viaje y la lista de pasajeros
+ENVIAR Planilla de salidas a la terminal
+ENVIAR Planilla emitida al proceso 3.3</pre>
+<h3>3.3 Registrar salida y llegada</h3>
+<pre class="mini">LEER Planilla emitida y Confirma salida y llegada
+SI tipo = salida ENTONCES
+   estado = en ruta; guardar la hora real de salida
+SI NO
+   estado = finalizado; guardar la hora real de llegada
+FIN SI
+GRABAR Estado de viaje en D2
+ENVIAR Datos de salida al proceso 4</pre>
+<h3>4.1 Recibir solicitud de reporte</h3>
+<pre class="mini">LEER Solicitud de reporte
+VALIDAR el tipo de reporte y el período
+ENVIAR Criterios de reporte al proceso 4.2</pre>
+<h3>4.2 Consolidar datos de viajes y ventas</h3>
+<pre class="mini">LEER Criterios de reporte, Datos de viaje, Datos de boletos y Datos de salida
+PARA CADA ruta del período
+   SUMAR los viajes realizados, los boletos vendidos y los ingresos
+FIN PARA
+ENVIAR Datos consolidados al proceso 4.3</pre>
+<h3>4.3 Emitir reporte de ventas y viajes</h3>
+<pre class="mini">LEER Datos consolidados
+ORDENAR por ruta y calcular los totales
+ENVIAR Reporte ventas / viajes al administrador</pre>
+</section>
+</main>
+<footer>Proyecto de Análisis y Diseño de Sistemas, gestión 2026. Publicación iterativa e incremental.</footer>
+</div>
+</body>
+</html>

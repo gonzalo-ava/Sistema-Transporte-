@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Análisis estructurado | Sistema de transporte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+<!-- Archivo: analisis-estructurado.html (modelo ambiental y DFD). Responsable: [completar]. Editen solo lo que está dentro de <section>. -->
+<div class="top"><div class="wrap"><header>
+<svg class="logo" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Vehículo"><rect x="7" y="10" width="50" height="38" rx="8"/><path d="M7 30h50M20 10v20M44 10v20"/><circle cx="19" cy="52" r="5" fill="#14284B"/><circle cx="45" cy="52" r="5" fill="#14284B"/></svg>
+<div><b>Sistema de transporte</b><span>Análisis y Diseño de Sistemas, proyecto de investigación</span></div>
+</header></div></div>
+<nav class="bar" aria-label="Secciones del proyecto"><div class="wrap"><div class="tabs">
+<a href="index.html">Inicio</a><a href="marco-teorico.html">Marco teórico</a><a href="analisis-estructurado.html" aria-current="page">Análisis estructurado</a><a href="analisis-objetos.html">Orientado a objetos</a><a href="boleteria.html">Boletería</a><a href="contacto.html">Contacto</a>
+</div></div></nav>
+<div class="wrap">
+<main>
+<section>
+<div class="sub"><a href="analisis-estructurado.html" aria-current="page">Modelo ambiental y DFD</a><a href="diccionario-datos.html">Diccionario de datos</a><a href="especificaciones-procesos.html">Especificaciones de procesos</a><a href="modelo-datos.html">Modelo de datos</a></div>
+<h1>Análisis estructurado</h1>
+<p class="muted">Parte II: modelo ambiental y diagramas de flujo de datos.</p>
+<h2>1. Modelo ambiental</h2>
+<h3>1.1 Declaración de propósito</h3>
+<p>El sistema controla rutas, vehículos, choferes y venta de boletos de la empresa, para que los viajes se programen y registren de forma ordenada y sin duplicados.</p>
+<h3>1.2 Lista de eventos</h3>
+<ol>
+<li>El administrador registra o modifica la ruta.</li>
+<li>El administrador registra el vehículo y el chofer.</li>
+<li>El administrador asigna el vehículo y el chofer a un viaje.</li>
+<li>El pasajero consulta horarios y disponibilidad.</li>
+<li>El pasajero compra su boleto (reserva asiento).</li>
+<li>El pasajero anula o cambia un boleto.</li>
+<li>La terminal autoriza la salida de un viaje.</li>
+<li>El chofer confirma la salida y la llegada del viaje.</li>
+<li>El administrador solicita un reporte de ventas y de viajes.</li>
+<li>El pasajero solicita factura por su boleto.</li>
+</ol>
+<h3>1.3 Diagrama de contexto</h3>
+<figure><div class="fig"><img src="img/diagrama-contexto.png" alt="Diagrama de contexto del sistema de transporte con seis entidades externas"></div><figcaption>Figura 2. Diagrama de contexto del sistema de transporte. Fuente: elaboración propia.</figcaption></figure>
+<h2>2. DFD nivel 0</h2>
+<p>Dividimos el sistema en cuatro procesos: programar viajes, vender boleto, controlar salidas y generar reportes. Usan dos almacenes: D1 Recursos y D2 Viajes y boletos.</p>
+<figure><div class="fig"><img src="img/dfd-nivel-0.png" alt="Diagrama de flujo de datos de nivel 0"></div><figcaption>Figura 3. Diagrama de flujo de datos, nivel 0. Fuente: elaboración propia.</figcaption></figure>
+<h2>3. Explosión de procesos</h2>
+<h3>3.1 Proceso 1: programar viajes</h3>
+<figure><div class="fig"><img src="img/proceso-1-programar-viajes.png" alt="Explosión del proceso 1 en 1.1, 1.2 y 1.3"></div><figcaption>Figura 4. Explosión del proceso 1: programar viajes. Fuente: elaboración propia.</figcaption></figure>
+<h3>3.2 Proceso 2: vender boleto</h3>
+<figure><div class="fig"><img src="img/proceso-2-vender-boleto.png" alt="Explosión del proceso 2 en 2.1, 2.2 y 2.3"></div><figcaption>Figura 5. Explosión del proceso 2: vender boleto. Fuente: elaboración propia.</figcaption></figure>
+<h3>3.3 Proceso 3: controlar salidas</h3>
+<figure><div class="fig"><img src="img/proceso-3-controlar-salidas.png" alt="Explosión del proceso 3 en 3.1, 3.2 y 3.3"></div><figcaption>Figura 6. Explosión del proceso 3: controlar salidas. Fuente: elaboración propia.</figcaption></figure>
+<h3>3.4 Proceso 4: generar reportes</h3>
+<figure><div class="fig"><img src="img/proceso-4-generar-reportes.png" alt="Explosión del proceso 4 en 4.1, 4.2 y 4.3"></div><figcaption>Figura 7. Explosión del proceso 4: generar reportes. Fuente: elaboración propia.</figcaption></figure>
+</section>
+</main>
+<footer>Proyecto de Análisis y Diseño de Sistemas, gestión 2026. Publicación iterativa e incremental.</footer>
+</div>
+</body>
+</html>

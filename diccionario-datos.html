@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Diccionario de datos | Sistema de transporte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+<!-- Archivo: diccionario-datos.html. Responsable: [completar]. Editen solo lo que está dentro de <section>. -->
+<div class="top"><div class="wrap"><header>
+<svg class="logo" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Vehículo"><rect x="7" y="10" width="50" height="38" rx="8"/><path d="M7 30h50M20 10v20M44 10v20"/><circle cx="19" cy="52" r="5" fill="#14284B"/><circle cx="45" cy="52" r="5" fill="#14284B"/></svg>
+<div><b>Sistema de transporte</b><span>Análisis y Diseño de Sistemas, proyecto de investigación</span></div>
+</header></div></div>
+<nav class="bar" aria-label="Secciones del proyecto"><div class="wrap"><div class="tabs">
+<a href="index.html">Inicio</a><a href="marco-teorico.html">Marco teórico</a><a href="analisis-estructurado.html" aria-current="page">Análisis estructurado</a><a href="analisis-objetos.html">Orientado a objetos</a><a href="boleteria.html">Boletería</a><a href="contacto.html">Contacto</a>
+</div></div></nav>
+<div class="wrap">
+<main>
+<section>
+<div class="sub"><a href="analisis-estructurado.html">Modelo ambiental y DFD</a><a href="diccionario-datos.html" aria-current="page">Diccionario de datos</a><a href="especificaciones-procesos.html">Especificaciones de procesos</a><a href="modelo-datos.html">Modelo de datos</a></div>
+<h1>Análisis estructurado</h1>
+<p class="muted">Parte II: diccionario de datos.</p>
+<h2>4. Diccionario de datos</h2>
+<p>Usamos esta notación: <b>=</b> se compone de, <b>+</b> y, <b>{ }</b> se repite, <b>( )</b> es opcional y <b>[ | ]</b> es una selección. Los nombres de los flujos son los mismos de nuestros diagramas.</p>
+<h3>4.1 Entidades externas</h3>
+<div class="scroll"><table><tr><th>Entidad</th><th>Función en el sistema</th></tr><tr><td>Administrador</td><td>Registra rutas, vehículos y choferes, programa las salidas y solicita reportes.</td></tr><tr><td>Boletero</td><td>Consulta la disponibilidad y registra las ventas y anulaciones de boletos.</td></tr><tr><td>Chofer</td><td>Recibe la ruta y el vehículo asignados y confirma la salida y la llegada.</td></tr><tr><td>Pasajero</td><td>Solicita pasajes y recibe su boleto y, si lo pide, su factura.</td></tr><tr><td>Terminal</td><td>Autoriza las salidas y recibe la planilla de salidas.</td></tr><tr><td>SIN</td><td>Servicio de Impuestos Nacionales: recibe las facturas emitidas.</td></tr></table></div>
+<h3>4.2 Almacenes de datos</h3>
+<div class="scroll"><table><tr><th>Almacén</th><th>Composición</th></tr><tr><td>D1  Recursos</td><td>{RUTA} + {VEHÍCULO} + {CHOFER}</td></tr><tr><td>D2  Viajes y boletos</td><td>{VIAJE} + {BOLETO} + {PASAJERO}</td></tr></table></div>
+<h3>4.3 Flujos de datos</h3>
+<div class="scroll"><table><tr><th>Flujo</th><th>Origen y destino</th><th>Composición</th></tr><tr><td>datos ruta</td><td>Administrador → 1</td><td>código de ruta + origen + destino + duración estimada + precio del pasaje</td></tr><tr><td>datos vehículo</td><td>Administrador → 1</td><td>placa + marca + modelo + capacidad de asientos</td></tr><tr><td>datos chofer</td><td>Administrador → 1</td><td>carnet de identidad + nombre completo + número de licencia + teléfono</td></tr><tr><td>Programar salidas</td><td>Administrador → 1</td><td>código de ruta + placa + carnet del chofer + fecha de salida + hora de salida</td></tr><tr><td>Registro de recursos</td><td>1 → D1</td><td>Registro de ruta + Registro vehículo y chofer</td></tr><tr><td>Registro de ruta</td><td>1.1 → D1</td><td>datos ruta</td></tr><tr><td>Registro vehículo y chofer</td><td>1.2 → D1</td><td>datos vehículo + datos chofer</td></tr><tr><td>rutas, vehículos y choferes libres</td><td>D1 → 1.3</td><td>{código de ruta + origen + destino} + {placa + capacidad} + {carnet + nombre}</td></tr><tr><td>Salida programada</td><td>1 → D2</td><td>código de viaje + código de ruta + placa + carnet del chofer + fecha + hora + estado</td></tr><tr><td>Asigna ruta</td><td>1 → Chofer</td><td>código de ruta + origen + destino + fecha de salida + hora de salida</td></tr><tr><td>Asigna vehículo</td><td>1 → Chofer</td><td>placa + marca + modelo</td></tr><tr><td>Solicitud de pasaje</td><td>Pasajero → 2</td><td>origen + destino + fecha de viaje + cantidad de asientos + nombre del pasajero + carnet</td></tr><tr><td>Disponibilidad</td><td>2 → Boletero</td><td>{código de viaje + hora de salida + asientos libres + precio}</td></tr><tr><td>Datos de viaje</td><td>D2 → 2 y 4</td><td>código de viaje + ruta + fecha + hora + placa + estado + {número de asiento + estado del asiento}</td></tr><tr><td>Datos de venta / anulaciones</td><td>Boletero → 2</td><td>tipo [venta | anulación] + código de viaje + número de asiento + nombre del pasajero + carnet + (número de boleto)</td></tr><tr><td>Registro de boleto</td><td>2 → D2</td><td>número de boleto + código de viaje + número de asiento + carnet del pasajero + fecha de venta + monto + estado [vendido | anulado]</td></tr><tr><td>Venta registrada</td><td>2.2 → 2.3</td><td>número de boleto + monto + fecha de venta + (pedido de factura)</td></tr><tr><td>Boleto</td><td>2 → Pasajero</td><td>número de boleto + origen + destino + fecha + hora + número de asiento + nombre del pasajero + precio</td></tr><tr><td>Facturas</td><td>2 → SIN</td><td>número de factura + NIT o carnet del cliente + fecha + detalle + monto</td></tr><tr><td>Autoriza salida</td><td>Terminal → 3</td><td>código de viaje + fecha y hora de autorización</td></tr><tr><td>Lista de viajes</td><td>D2 → 3</td><td>{código de viaje + ruta + fecha + hora + placa + chofer + estado}</td></tr><tr><td>Salida autorizada</td><td>3.1 → 3.2</td><td>código de viaje + fecha y hora de autorización</td></tr><tr><td>Planilla emitida</td><td>3.2 → 3.3</td><td>código de viaje + número de planilla</td></tr><tr><td>Planilla de salidas</td><td>3 → Terminal</td><td>código de viaje + ruta + hora + placa + chofer + {nombre del pasajero + número de asiento}</td></tr><tr><td>Confirma salida y llegada</td><td>Chofer → 3</td><td>código de viaje + tipo [salida | llegada] + hora real</td></tr><tr><td>Estado de viaje</td><td>3 → D2</td><td>código de viaje + estado [programado | autorizado | en ruta | finalizado] + (hora real de salida) + (hora real de llegada)</td></tr><tr><td>Datos de salida</td><td>3 → 4</td><td>{código de viaje + hora real de salida + hora real de llegada + estado}</td></tr><tr><td>Solicitud de reporte</td><td>Administrador → 4</td><td>tipo [ventas | viajes] + fecha inicial + fecha final + (ruta)</td></tr><tr><td>Criterios de reporte</td><td>4.1 → 4.2</td><td>tipo [ventas | viajes] + fecha inicial + fecha final + (ruta)</td></tr><tr><td>Datos de boletos</td><td>D2 → 4</td><td>{número de boleto + código de viaje + monto + estado + fecha de venta}</td></tr><tr><td>Datos consolidados</td><td>4.2 → 4.3</td><td>{ruta + viajes realizados + boletos vendidos + ingresos}</td></tr><tr><td>Reporte ventas / viajes</td><td>4 → Administrador</td><td>período + {ruta + viajes realizados + boletos vendidos + ingresos} + total general</td></tr></table></div>
+</section>
+</main>
+<footer>Proyecto de Análisis y Diseño de Sistemas, gestión 2026. Publicación iterativa e incremental.</footer>
+</div>
+</body>
+</html>
